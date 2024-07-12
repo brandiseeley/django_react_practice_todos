@@ -1,0 +1,4 @@
+todos/__pycache__/*
+todo_lists/__pycache__*
+.DS_Store
+.todos/.DS_Store

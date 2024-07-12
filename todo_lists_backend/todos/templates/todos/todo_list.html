@@ -1,0 +1,41 @@
+<body>
+<h1>{{ todo_list.title }}</h1>
+
+{% if todos %}
+  <ul>
+    {% for todo in todos %}
+    <li>
+      <input data-todo_id="{{ todo.id }}" type="checkbox" {{ todo.is_complete|yesno:"checked," }}>{{ todo.description }}</input>
+    </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No Todos in this list.</p>
+{% endif %}
+
+<a href="new/">Add Todo</a>
+<a href="/">Home</a>
+
+<script>
+  document.addEventListener('change', async event => {
+    if (event.target.tagName !== 'INPUT') return;
+    let todo = event.target;
+    let id = todo.dataset.todo_id;
+    let data = new FormData();
+    data.append('id', id);
+    data.append('is_complete', todo.checked);
+    
+    let response = await fetch(`todo/${id}/edit/`, {
+      method: "POST",
+      body: data,
+      credentials: 'same-origin',
+      headers: { "X-CSRFToken": "{{ csrf_token }}" },
+    });
+
+    if (!response.ok) {
+      todo.checked = !todo.checked;
+    }
+  })
+
+</script>
+</body>

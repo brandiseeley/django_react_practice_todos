@@ -1,0 +1,7 @@
+<h1>Add new todo to list: {{ todo_list.title }}</h1>
+<form method="post" action="">
+  {% csrf_token %}
+  <input name="description" type="text">
+  <button type="submit">Add</button>
+</form>
+<a href="/">Home</a>

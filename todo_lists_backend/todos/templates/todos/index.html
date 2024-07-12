@@ -1,0 +1,15 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'todos/style.css' %}">
+
+{% if todo_lists %}
+  <ul>
+    {% for todo_list in todo_lists %}
+    <li>
+      <a href="/{{ todo_list.id }}/">{{ todo_list.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No Todo Lists have been made.</p>
+{% endif %}
